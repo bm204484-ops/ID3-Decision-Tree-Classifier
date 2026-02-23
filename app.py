@@ -33,11 +33,13 @@ def info_gain(df, attr, target):
 def id3(df, target, attrs):
     if len(df[target].unique()) == 1:
         return df[target].iloc[0]
+    
     if not attrs:
         return df[target].mode()[0]
     
     best = max(attrs, key=lambda x: info_gain(df, x, target))
     tree = {best: {}}
+    
     for v in df[best].unique():
         subset = df[df[best] == v]
         if subset.empty:
@@ -76,4 +78,4 @@ if "tree" in st.session_state:
         if result == "Yes":
             st.success(f"Result: {result} (Go play!)")
         else:
-            st.error(f"Result: {result} (Stay
+            st.error(f"Result: {result} (Stay inside.)")
